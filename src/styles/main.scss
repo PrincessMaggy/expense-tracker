@@ -25,9 +25,12 @@
         margin: 0;
         &:hover {
             color: rgba(99, 44, 94, 0.9);
-            // font-weight: 700;
             transition: 0.5s ease;
             text-decoration: none;
+        }
+        &:focus {
+            font-weight: 700;
+            transition: 0.5s ease;
         }
     }
 }
