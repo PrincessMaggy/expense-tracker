@@ -5,6 +5,7 @@ import '../styles/main.scss';
 import fire from "../config/Fire";
 import Login from './Forms/Login';
 import Register from "./Forms/Register";
+import Tracker from "./Tracker/Tracker";
 
 export default class Main extends Component{
 
@@ -36,11 +37,14 @@ export default class Main extends Component{
             formSwitch: action === 'register'? true: false
         })
     } 
+
+
     render(){
         const form = !this.state.formSwitch ? <Login/> : <Register/>;
         return(
         <>
-                <div className="main">
+            {!this.state.user?
+                (<div className="main">
                     {form}
                     {!this.state.formSwitch ? ( <span className="extra">
                         Not Registered?  <button 
@@ -53,7 +57,7 @@ export default class Main extends Component{
                     </span>)
 
                     }
-                </div>
-        </>)
+                </div>) : (<Tracker/>)
+      }  </>)
     }
 }
