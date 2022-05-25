@@ -2,3 +2,11 @@ input[type=file] {
     color: red;
     padding-top: 1em;
 }
+
+.errors {
+    padding: 10px;
+    background-color: #feeaea;
+    border: 1px solid #fadadb;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
