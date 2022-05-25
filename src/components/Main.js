@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import '../styles/main.scss';
+
+
+import fire from "../config/Fire";
 import Login from './Forms/Login';
 import Register from "./Forms/Register";
 
@@ -10,6 +13,23 @@ export default class Main extends Component{
         loading:true,
         formSwitch:false
     }
+
+    //if registration was successful
+    componentDidMount(){
+        this.authListener();
+    }
+
+    //update user state
+    authListener(){
+        fire.auth().onAuthStateChanged((user)=>{
+            if(user){
+                this.setState({user});
+            }else{
+                this.setState({user:null})
+            }
+        })
+    }
+
 
     formSwitch = (action) =>{
         this.setState({
