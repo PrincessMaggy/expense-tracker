@@ -4,7 +4,7 @@ import fire from "../../config/Fire";
 class Tracker extends Component{
     //logout
     logout =()=>{
-        fire.auth.signOut();
+        fire.auth().signOut();
     }
 
     render(){
