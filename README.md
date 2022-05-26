@@ -17,9 +17,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This is a web app that performs the function of an expense tracker. It has the following features:
 - A create Employee Profile Page that uses the following details: Name, Profile Picture, Job description, Location, and Department.
 
-- Picture upload functionality to upload employee picture
+- Picture upload functionality to upload employee picture.
 
-- Receipt Upload functionality to attach receipt
+- Receipt Upload functionality to attach receipt.
 ### Screenshot
 
 ![screenshot](./screenshot.PNG)
