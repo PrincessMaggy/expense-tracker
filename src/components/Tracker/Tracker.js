@@ -60,7 +60,7 @@ state ={
                 transactionName:"",
                 transactionType:'',
                 price: ''
-            }).then((error) =>{
+            }).catch((error) =>{
                 //error callback
                 console.log(error);
             })
