@@ -35,5 +35,13 @@
     }
 }
 
+.spinner {
+    display: table;
+    margin: 30vh auto;
+    img {
+        max-width: 50%;
+    }
+}
+
 @import './login';
 @import './register'
