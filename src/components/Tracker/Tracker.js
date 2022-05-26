@@ -60,9 +60,6 @@ state ={
                 transactionName:"",
                 transactionType:'',
                 price: ''
-            }).catch((error) =>{
-                //error callback
-                console.log(error);
             })
         })
     }
@@ -75,11 +72,11 @@ state ={
 
             <div className="trackerBlock">
                 <div className="welcome">
-                    <span>Hi, {currentUser.displayName}!</span>
+                    <span>Welcome, {currentUser.displayName}!</span>
                     <button onClick={this.logout} className="exit">LOG OUT</button>
                 </div>
 
-                <div className="totalCash">$100</div>
+                <div className="totalCash">BALANCE: ${this.state.money}</div>
 
                 <div className="newTransactionBlock">
                     <div className="newTransaction">
