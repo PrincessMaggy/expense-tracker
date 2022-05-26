@@ -65,6 +65,33 @@ state ={
         })
     }
     }
+// lifecycle
+    componentWillMount(){
+        const {currentUID, money} = this.state;
+        let totalMoney = money;
+        const backUpState = this.state.transactions;
+        fire.database().ref('Transactions/' + currentUID).once('value',
+        (snapshot)=>{
+            snapshot.forEach((childSnapshot) =>{
+                totalMoney =
+                childSnapshot.val().type === 'deposit'?
+                parseFloat(childSnapshot.val().price) + totalMoney:
+                totalMoney - parseFloat(childSnapshot.val().price)
+
+                backUpState.push({
+                    id:childSnapshot.val().id,
+                    name:childSnapshot.val().name,
+                    type:childSnapshot.val().type,
+                    price:childSnapshot.val().price,
+                    user_id:childSnapshot.val().user_id
+                });
+            });
+            this.setState({
+                transactions: backUpState,
+                money: totalMoney
+            })
+        });
+    }
     render(){
 
         let currentUser = fire.auth().currentUser;
@@ -121,7 +148,7 @@ state ={
                     <p>Latest Transactions</p>
                     <ul>
                         {Object.keys(this.state.transactions).map((id)=>(
-                            <Transaction
+                            <Transaction  key={id}
                             type ={this.state.transactions[id].type}
                             name ={this.state.transactions[id].name}
                             price ={this.state.transactions[id].price}/>
