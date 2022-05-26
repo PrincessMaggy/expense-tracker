@@ -7,6 +7,8 @@ import Login from './Forms/Login';
 import Register from "./Forms/Register";
 import Tracker from "./Tracker/Tracker";
 
+import spinner from "../img/loader.gif"
+
 export default class Main extends Component{
 
     state={
@@ -41,6 +43,16 @@ export default class Main extends Component{
 
     render(){
         const form = !this.state.formSwitch ? <Login/> : <Register/>;
+
+        if(this.state.user === 1){
+            return (
+                <div className="mainBlock"> 
+                <div className="spinner">
+                    <img src={spinner} alt="spinner" className="spin"/>
+                </div>
+                </div>
+            )
+        }
         return(
         <>
             {!this.state.user?
