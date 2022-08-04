@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
+import {useForm} from "react-hook-form";
 import fire from "../../config/Fire";
 import Transaction from "./Transaction";
 
 class Tracker extends Component{
-
+   
 state ={
     transactions:[],
     money:0,
@@ -11,6 +12,7 @@ state ={
     transactionType:"",
     price:"",
     dates:"",
+    statuses:"",
     currentUID: fire.auth().currentUser.uid
 }
 
@@ -34,6 +36,7 @@ state ={
             price,
             currentUID,
             dates,
+            statuses,
             money
         }= this.state;
 
@@ -45,6 +48,7 @@ state ={
             name: transactionName,
             type: transactionType,
             dates:dates,
+            statuses:statuses,
             price: price,
             user_id: currentUID
         });
@@ -55,16 +59,18 @@ state ={
             type: transactionType,
             dates:dates,
             price: price,
+            statuses:statuses,
             user_id: currentUID
         }).then((data) =>{
             //successful callback?
             console.log("success");
             this.setState({
                 transactions: backUpState,
-                // money: transactionType === 'deposit'? money + parseFloat(price) : money - parseFloat(price),
+                money: statuses === 'Reimbursed'? money + parseFloat(price) : 0,
                 transactionName:"",
                 transactionType:'',
                 dates:"",
+                statuses:"",
                 price: ''
             })
         })
@@ -79,9 +85,8 @@ state ={
         (snapshot)=>{
             snapshot.forEach((childSnapshot) =>{
                 totalMoney =
-                childSnapshot.val().type === 'deposit'?
-                parseFloat(childSnapshot.val().price) + totalMoney:
-                totalMoney - parseFloat(childSnapshot.val().price)
+                childSnapshot.val().statuses !== 'Reimbursed'?
+                parseFloat(childSnapshot.val().price) + totalMoney:0
 
                 backUpState.push({
                     id:childSnapshot.val().id,
@@ -89,6 +94,7 @@ state ={
                     type:childSnapshot.val().type,
                     price:childSnapshot.val().price,
                     dates:childSnapshot.val().dates,
+                    statuses:childSnapshot.val().statuses,
                     user_id:childSnapshot.val().user_id
                 });
             });
@@ -110,7 +116,7 @@ state ={
                     <button onClick={this.logout} className="exit">LOG OUT</button>
                 </div>
 
-                <div className="totalCash">BALANCE: ${this.state.money}</div>
+                <div className="totalCash">TOTAL EXPENSE: ${this.state.money}</div>
 
                 <div className="newTransactionBlock">
                     <div className="newTransaction">
@@ -122,15 +128,24 @@ state ={
                                 value={this.state.transactionType}
                                 onChange={this.handleChange("transactionType")}>
                                     <option value="0">Merchant</option>
-                                    <option value="expense">Taxi</option>
-                                    <option value="deposit">Breakfast</option>
-                                    <option value="deposit">Airline</option>
-                                    <option value="deposit">Parking</option>
-                                    <option value="deposit">Rental Car</option>
-                                    <option value="deposit">Fast food</option>
-                                    <option value="deposit">Electronics</option>
-                                    <option value="deposit">Shuttle</option>
-                                    <option value="deposit">Hotel</option>
+                                    <option value="Taxi">Taxi</option>
+                                    <option value="Breakfast">Breakfast</option>
+                                    <option value="Airline">Airline</option>
+                                    <option value="Parking">Parking</option>
+                                    <option value="Rental Car">Rental Car</option>
+                                    <option value="Fast Food">Fast food</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Shuttle">Shuttle</option>
+                                    <option value="Hotel">Hotel</option>
+                                </select><br/>
+
+                                <select name="statuses"
+                                value={this.state.statuses}
+                                onChange={this.handleChange("statuses")}>
+                                    <option value="0">Status</option>
+                                    <option value="Reimbursed">Reimbursed</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="New">New</option>
                                 </select><br/>
 
                                 <label>Date:</label>
@@ -156,17 +171,22 @@ state ={
                             onChange={this.handleChange("transactionName")}></textarea><br/>
                             
                             <label>Upload receipt</label>
-                            <input type="file" />
+                            <input type="file"
+                            name="picture"
+                            id="image" 
+                            required/>
+                            <img  id="preview"  alt=""/>
 
                             <input type="reset" value="RESET"/>
                             </div>
 
-                        </form>
-                        <button 
+                             <input type="submit" 
                             className="addTransaction"
-                            onClick={()=> this.addNewTransaction()}> 
-                            + Add Transaction
-                            </button>
+                            onClick={()=> this.addNewTransaction()}
+                           value=" + Add Transaction"
+                            />
+
+                        </form>
                     </div>
                 </div>
 
@@ -177,6 +197,7 @@ state ={
                             <Transaction  key={id}
                             date ={this.state.transactions[id].dates}
                             type ={this.state.transactions[id].type}
+                            statuses ={this.state.transactions[id].statuses}
                             comment ={this.state.transactions[id].name}
                             price ={this.state.transactions[id].price}
                             />
