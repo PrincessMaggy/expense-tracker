@@ -10,6 +10,7 @@ state ={
     transactionName: "",
     transactionType:"",
     price:"",
+    dates:"",
     currentUID: fire.auth().currentUser.uid
 }
 
@@ -32,6 +33,7 @@ state ={
             transactionType,
             price,
             currentUID,
+            dates,
             money
         }= this.state;
 
@@ -42,6 +44,7 @@ state ={
             id: backUpState.length + 1,
             name: transactionName,
             type: transactionType,
+            dates:dates,
             price: price,
             user_id: currentUID
         });
@@ -50,6 +53,7 @@ state ={
             id: backUpState.length,
             name: transactionName,
             type: transactionType,
+            dates:dates,
             price: price,
             user_id: currentUID
         }).then((data) =>{
@@ -57,9 +61,10 @@ state ={
             console.log("success");
             this.setState({
                 transactions: backUpState,
-                money: transactionType === 'deposit'? money + parseFloat(price) : money - parseFloat(price),
+                // money: transactionType === 'deposit'? money + parseFloat(price) : money - parseFloat(price),
                 transactionName:"",
                 transactionType:'',
+                dates:"",
                 price: ''
             })
         })
@@ -83,6 +88,7 @@ state ={
                     name:childSnapshot.val().name,
                     type:childSnapshot.val().type,
                     price:childSnapshot.val().price,
+                    dates:childSnapshot.val().dates,
                     user_id:childSnapshot.val().user_id
                 });
             });
@@ -109,22 +115,30 @@ state ={
                 <div className="newTransactionBlock">
                     <div className="newTransaction">
                         <form>
-                            <input
-                            placeholder="Transaction Name"
-                            type="text"
-                            name="transactionName"
-                            value={this.state.transactionName}
-                            onChange={this.handleChange("transactionName")}
-                            />
+                            
 
                             <div className="inputGroup">
                                 <select name="type"
                                 value={this.state.transactionType}
                                 onChange={this.handleChange("transactionType")}>
-                                    <option value="0">Type</option>
-                                    <option value="expense">Expense</option>
-                                    <option value="deposit">Deposit</option>
-                                </select>
+                                    <option value="0">Merchant</option>
+                                    <option value="expense">Taxi</option>
+                                    <option value="deposit">Breakfast</option>
+                                    <option value="deposit">Airline</option>
+                                    <option value="deposit">Parking</option>
+                                    <option value="deposit">Rental Car</option>
+                                    <option value="deposit">Fast food</option>
+                                    <option value="deposit">Electronics</option>
+                                    <option value="deposit">Shuttle</option>
+                                    <option value="deposit">Hotel</option>
+                                </select><br/>
+
+                                <label>Date:</label>
+                                <input type="date" 
+                                value={this.state.dates} 
+                                name="date" 
+                                onChange={this.handleChange('dates')} 
+                                required/>
 
                                 <input
                                 placeholder="Price"
@@ -132,7 +146,19 @@ state ={
                                 name="Price"
                                 value={this.state.price}
                             onChange={this.handleChange("price")}
-                            />
+                            /><br/>
+
+                            <textarea
+                            placeholder="Comment"
+                            type="text"
+                            name="transactionName"
+                            value={this.state.transactionName}
+                            onChange={this.handleChange("transactionName")}></textarea><br/>
+                            
+                            <label>Upload receipt</label>
+                            <input type="file" />
+
+                            <input type="reset" value="RESET"/>
                             </div>
 
                         </form>
@@ -144,17 +170,19 @@ state ={
                     </div>
                 </div>
 
-                <div className="latestTransactions">
+                 <div className="latestTransactions">
                     <p>Latest Transactions</p>
                     <ul>
                         {Object.keys(this.state.transactions).map((id)=>(
                             <Transaction  key={id}
+                            date ={this.state.transactions[id].dates}
                             type ={this.state.transactions[id].type}
-                            name ={this.state.transactions[id].name}
-                            price ={this.state.transactions[id].price}/>
+                            comment ={this.state.transactions[id].name}
+                            price ={this.state.transactions[id].price}
+                            />
                         ))}
                     </ul>
-                </div>
+                </div> 
             </div>
             </>
         )
