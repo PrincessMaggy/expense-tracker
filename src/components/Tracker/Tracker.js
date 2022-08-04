@@ -66,7 +66,7 @@ state ={
             console.log("success");
             this.setState({
                 transactions: backUpState,
-                money: statuses === 'Reimbursed'? money + parseFloat(price) : 0,
+                money: statuses === 'Reimbursed'? money + parseFloat(price) : 0 + money,
                 transactionName:"",
                 transactionType:'',
                 dates:"",
@@ -86,7 +86,7 @@ state ={
             snapshot.forEach((childSnapshot) =>{
                 totalMoney =
                 childSnapshot.val().statuses !== 'Reimbursed'?
-                parseFloat(childSnapshot.val().price) + totalMoney:0
+                parseFloat(childSnapshot.val().price) + totalMoney:0 + totalMoney
 
                 backUpState.push({
                     id:childSnapshot.val().id,
