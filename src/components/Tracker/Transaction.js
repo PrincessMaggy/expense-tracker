@@ -8,6 +8,7 @@ const Transaction =(props)=>{
             <div>{props.date}</div>
             <div>{props.type}</div>
             <div>{props.price}</div>
+            <div>{props.statuses}</div>
             <div>{props.comment}</div>
            
         </li>
