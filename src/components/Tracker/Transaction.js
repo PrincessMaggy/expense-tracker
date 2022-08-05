@@ -4,7 +4,7 @@ const Transaction =(props)=>{
 
 
     return(
-                <tr>
+                <tr className="transaction" >
                     <td>{props.date}</td>
                     <td>{props.merchant}</td>
                     <td>{props.price}</td>

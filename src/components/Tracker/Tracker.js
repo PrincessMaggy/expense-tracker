@@ -1,5 +1,4 @@
 import React, { Component} from "react";
-import {useForm} from "react-hook-form";
 import fire from "../../config/Fire";
 import Transaction from "./Transaction";
 
@@ -14,9 +13,15 @@ state ={
     dates:"",
     statuses:"",
     currentUID: fire.auth().currentUser.uid,
-    image:""
+    image:"",
+    val:"none"
 }
-
+    // showup=(e)=>{
+    //     this.setState({
+    //         val: "block"
+    //     })
+    //     console.log(e.target.parentElement)
+    // }
 
     onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -214,32 +219,33 @@ state ={
                 </div>
 
                 <div className="second">
-                <div className="latestTransactions">
-                        <p>Latest Transactions</p>
-                        <table>
-                        <thead>
-                            <tr>
-                                <td>Date</td>
-                                <td>Merchant</td>
-                                <td> Price</td>
-                                <td>Status</td>
-                                <td> Comment</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Object.keys(this.state.transactions).map((id)=>(
-                                <Transaction  key={id}
-                                date ={this.state.transactions[id].dates}
-                                merchant ={this.state.transactions[id].merchant}
-                                statuses ={this.state.transactions[id].statuses}
-                                comment ={this.state.transactions[id].comment}
-                                price ={this.state.transactions[id].price}
-                                image ={this.state.transactions[id].image}
-                                />
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    <div className="latestTransactions">
+                            <p>Latest Transactions</p>
+                            <table>
+                            <thead>
+                                <tr>
+                                    <td>Date</td>
+                                    <td>Merchant</td>
+                                    <td> Price</td>
+                                    <td>Status</td>
+                                    <td> Comment</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Object.keys(this.state.transactions).map((id)=>(
+                                    <Transaction  key={id}
+                                    date ={this.state.transactions[id].dates}
+                                    merchant ={this.state.transactions[id].merchant}
+                                    statuses ={this.state.transactions[id].statuses}
+                                    comment ={this.state.transactions[id].comment}
+                                    price ={this.state.transactions[id].price}
+                                    image ={this.state.transactions[id].image}
+                                    />
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style={{display:this.state.val}}>Right here</div>
                 </div>
 
                 <div className="third">
