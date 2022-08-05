@@ -193,3 +193,20 @@
         width: 2em;
     }
 }
+@media screen and(max-width:768px) {
+    .tracker{
+        flex-direction: column;
+    }
+    .trackerBlock{
+        border: none;
+        width: auto;
+        
+    }
+    .latestTransactions{
+        border: none;
+        width: auto;
+        height: auto;
+        padding-bottom: 10em;
+    }
+    
+}
