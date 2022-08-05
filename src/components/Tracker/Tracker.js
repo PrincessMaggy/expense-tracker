@@ -23,20 +23,18 @@ state ={
     }
 
      //handle filter
-     handleFilter =(e)=>{
-        if(e.target.id === "type"){
-            const filt =this.state.transactions.filter((state) =>
-            {if (state.merchant === e.target.value){
-                return state
-            }})
-           this.setState({
-            transactions: filt
-           })
-        }
-            
-      
-    }
-     
+    //  handleFilter =(e)=>{
+    //     if(e.target.id === "type"){
+    //         const filt = this.state.transactions.filter((state) =>{
+    //             state.merchant === e.target.value}); 
+    //             this.setState({
+    //                 transactions: filt
+    //         })
+    //     }
+    //     console.log(filt)
+    // }
+
+
     // showup=(e)=>{
     //     this.setState({
     //         val: "block"
