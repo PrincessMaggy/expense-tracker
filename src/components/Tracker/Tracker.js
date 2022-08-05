@@ -13,9 +13,21 @@ state ={
     price:"",
     dates:"",
     statuses:"",
-    currentUID: fire.auth().currentUser.uid
+    currentUID: fire.auth().currentUser.uid,
+    image:""
 }
 
+
+    onImageChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            this.setState({image: e.target.result});
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+    
     //logout
     logout =()=>{
         fire.auth().signOut();
@@ -36,6 +48,7 @@ state ={
             price,
             currentUID,
             dates,
+            image,
             statuses,
             money
         }= this.state;
@@ -50,6 +63,7 @@ state ={
             dates:dates,
             statuses:statuses,
             price: price,
+            image:image,
             user_id: currentUID
         });
 
@@ -59,6 +73,7 @@ state ={
             type: transactionType,
             dates:dates,
             price: price,
+            image:image,
             statuses:statuses,
             user_id: currentUID
         }).then((data) =>{
@@ -70,6 +85,7 @@ state ={
                 transactionName:"",
                 transactionType:'',
                 dates:"",
+                image:"",
                 statuses:"",
                 price: ''
             })
@@ -94,6 +110,7 @@ state ={
                     type:childSnapshot.val().type,
                     price:childSnapshot.val().price,
                     dates:childSnapshot.val().dates,
+                    image:childSnapshot.val().image,
                     statuses:childSnapshot.val().statuses,
                     user_id:childSnapshot.val().user_id
                 });
@@ -176,10 +193,11 @@ state ={
                                 
                                 <label>Upload receipt</label>
                                 <input type="file"
-                                name="picture"
-                                id="image" 
+                                onChange={this.onImageChange}
+                                id="group_image" 
                                 required/> <br/>
-                                <img  id="preview"  alt=""/>
+
+                                <img  id="target" src={this.state.image}  alt=""/>
 
                                 {/* <input type="reset" value="Cancel"/> */}
                                 </div>
@@ -215,6 +233,7 @@ state ={
                                 statuses ={this.state.transactions[id].statuses}
                                 comment ={this.state.transactions[id].name}
                                 price ={this.state.transactions[id].price}
+                                image ={this.state.transactions[id].image}
                                 />
                             ))}
                         </table>
