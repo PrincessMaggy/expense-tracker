@@ -109,103 +109,122 @@ state ={
         let currentUser = fire.auth().currentUser;
         return(
             <>
+            <div className="welcome">
+                        <span>Welcome, {currentUser.displayName}!</span>
+                        <button onClick={this.logout} className="exit">LOG OUT</button>
+                    </div>
 
-            <div className="trackerBlock">
-                <div className="welcome">
-                    <span>Welcome, {currentUser.displayName}!</span>
-                    <button onClick={this.logout} className="exit">LOG OUT</button>
+            <div className="tracker">
+                <div className="trackerBlock">
+                    
+                    <div className="newTransactionBlock">
+                        <div className="newTransaction">
+                            <form>
+                                
+                            <div className="title">ADD EXPENSE</div>
+                                <div className="inputGroup">
+                                    <label>Merchant:</label>
+                                    <select name="type"
+                                    value={this.state.transactionType}
+                                    onChange={this.handleChange("transactionType")}>
+                                        <option value="0"></option>
+                                        <option value="Taxi">Taxi</option>
+                                        <option value="Breakfast">Breakfast</option>
+                                        <option value="Airline">Airline</option>
+                                        <option value="Parking">Parking</option>
+                                        <option value="Rental Car">Rental Car</option>
+                                        <option value="Fast Food">Fast food</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Shuttle">Shuttle</option>
+                                        <option value="Hotel">Hotel</option>
+                                    </select><br/>
+
+                                    <label>Status:</label>
+                                    <select name="statuses"
+                                    value={this.state.statuses}
+                                    onChange={this.handleChange("statuses")}>
+                                        <option value="0"></option>
+                                        <option value="Reimbursed">Reimbursed</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="New">New</option>
+                                    </select><br/>
+
+                                    <label>Date:</label>
+                                    <input type="date" 
+                                    value={this.state.dates} 
+                                    name="date" 
+                                    onChange={this.handleChange('dates')} 
+                                    required/>
+
+                                    <label>Price:</label>
+                                    <input
+                                    placeholder="$"
+                                    id="price"
+                                    type="text"
+                                    name="Price"
+                                    value={this.state.price}
+                                onChange={this.handleChange("price")}
+                                /><br/>
+
+                                <label>Comment</label>
+                                <textarea
+                                type="text"
+                                name="transactionName"
+                                value={this.state.transactionName}
+                                onChange={this.handleChange("transactionName")}></textarea><br/>
+                                
+                                <label>Upload receipt</label>
+                                <input type="file"
+                                name="picture"
+                                id="image" 
+                                required/> <br/>
+                                <img  id="preview"  alt=""/>
+
+                                {/* <input type="reset" value="Cancel"/> */}
+                                </div>
+
+                                <input type="submit" 
+                                className="addTransaction"
+                                onClick={()=> this.addNewTransaction()}
+                            value="Add Transaction"
+                                />
+
+                            </form>
+                        </div>
+                    </div> 
                 </div>
 
-                <div className="totalCash">TOTAL EXPENSE: ${this.state.money}</div>
-
-                <div className="newTransactionBlock">
-                    <div className="newTransaction">
-                        <form>
-                            
-
-                            <div className="inputGroup">
-                                <select name="type"
-                                value={this.state.transactionType}
-                                onChange={this.handleChange("transactionType")}>
-                                    <option value="0">Merchant</option>
-                                    <option value="Taxi">Taxi</option>
-                                    <option value="Breakfast">Breakfast</option>
-                                    <option value="Airline">Airline</option>
-                                    <option value="Parking">Parking</option>
-                                    <option value="Rental Car">Rental Car</option>
-                                    <option value="Fast Food">Fast food</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Shuttle">Shuttle</option>
-                                    <option value="Hotel">Hotel</option>
-                                </select><br/>
-
-                                <select name="statuses"
-                                value={this.state.statuses}
-                                onChange={this.handleChange("statuses")}>
-                                    <option value="0">Status</option>
-                                    <option value="Reimbursed">Reimbursed</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="New">New</option>
-                                </select><br/>
-
-                                <label>Date:</label>
-                                <input type="date" 
-                                value={this.state.dates} 
-                                name="date" 
-                                onChange={this.handleChange('dates')} 
-                                required/>
-
-                                <input
-                                placeholder="Price"
-                                type="text"
-                                name="Price"
-                                value={this.state.price}
-                            onChange={this.handleChange("price")}
-                            /><br/>
-
-                            <textarea
-                            placeholder="Comment"
-                            type="text"
-                            name="transactionName"
-                            value={this.state.transactionName}
-                            onChange={this.handleChange("transactionName")}></textarea><br/>
-                            
-                            <label>Upload receipt</label>
-                            <input type="file"
-                            name="picture"
-                            id="image" 
-                            required/>
-                            <img  id="preview"  alt=""/>
-
-                            <input type="reset" value="RESET"/>
-                            </div>
-
-                             <input type="submit" 
-                            className="addTransaction"
-                            onClick={()=> this.addNewTransaction()}
-                           value=" + Add Transaction"
-                            />
-
-                        </form>
+                <div className="second">
+                <div className="latestTransactions">
+                        <p>Latest Transactions</p>
+                        <table>
+                        <thead>
+                            <tr>
+                                <td>Date</td>
+                                <td>Merchant</td>
+                                <td> Price</td>
+                                <td>Status</td>
+                                <td> Comment</td>
+                            </tr>
+                        </thead>
+                            {Object.keys(this.state.transactions).map((id)=>(
+                                <Transaction  key={id}
+                                date ={this.state.transactions[id].dates}
+                                type ={this.state.transactions[id].type}
+                                statuses ={this.state.transactions[id].statuses}
+                                comment ={this.state.transactions[id].name}
+                                price ={this.state.transactions[id].price}
+                                />
+                            ))}
+                        </table>
                     </div>
                 </div>
 
-                 <div className="latestTransactions">
-                    <p>Latest Transactions</p>
-                    <ul>
-                        {Object.keys(this.state.transactions).map((id)=>(
-                            <Transaction  key={id}
-                            date ={this.state.transactions[id].dates}
-                            type ={this.state.transactions[id].type}
-                            statuses ={this.state.transactions[id].statuses}
-                            comment ={this.state.transactions[id].name}
-                            price ={this.state.transactions[id].price}
-                            />
-                        ))}
-                    </ul>
-                </div> 
+                <div className="third">
+                     <div className="totalCash">TOTAL EXPENSE: ${this.state.money}</div>
+                </div>
             </div>
-            </>
+        </>
         )
     }
 }

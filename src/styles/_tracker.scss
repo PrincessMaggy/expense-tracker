@@ -1,121 +1,142 @@
-.trackerBlock {
-    box-sizing: border-box;
-    padding: 20px;
-    width: 100%;
-    max-width: 350px;
-    margin: 100px auto;
-    display: table;
-}
-
-.welcome {
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    text-shadow: 0px 5px 3px #292929;
-}
-
-.totalMoney {
+.welcome{
+    background-color: rgba(93, 14, 130, 0.97);
     color: white;
-    font-size: 20px;
-    margin: 0 0 10px;
-    text-shadow: 0px 5px 3px #292929;
+    text-align:left;
+    padding: 1em;
+    height: 10vh;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
-
-// .newTransaction {
-//     box-sizing: border-box;
-//     text-align: center;
-//     color: rgba(99, 44, 94, 0.9);
-//     display: table;
-//     width: 100%;
-//     border-radius: 5px;
-//     background-color: white;
-//     border: 0;
-//     padding: 10px;
-//     margin: 0 0 10px;
-//     font-size: 15px;
-//     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba( 0, 0, 0.19);
-//     input[type=text],
-//     select {
-//         width: 100%;
-//         box-sizing: border-box;
-//         border: 1px solid #ddd;
-//         font-size: 13px;
-//         padding: 7px;
-//         &:focus {
-//             outline: none;
-//         }
-//     }
-// }
-
-// .inputGroup {
-//     display: flex;
-//     justify-content: center;
-// }
-
-.addTransaction {
-    text-align: center;
-    color: white;
-    border-radius: 3px;
-    background-color: rgba(99, 44, 94, 0.9);
+.exit{
+    float: right;
+    color: rgba(93, 14, 130, 0.97);
+    background-color: #f3f5f7;
     border: 0;
-    margin: 5px 0 0;
-    padding: 5px 10px;
+    padding: 15px;
+    margin: 10px 0 0 0;
     font-size: 15px;
     cursor: pointer;
     &:hover {
-        background-color: rgba(44, 6, 41, 0.9);
-    }
-    &:focus {
-        outline: none;
+        color: #f3f5f7;
+        background-color: rgba(93, 14, 130, 0.9);
+        font-weight: 700;
+        border: 0.5px inset #f3f5f7;
+        transition: 0.5s ease;
     }
 }
+// end of title section
 
-.latestTransactions {
-    margin: 10 px 0 0 0;
+
+.tracker{
+    display: flex;
+    color: black;
+}
+.trackerBlock{
+    border: 1px groove #f3f5f7;
+    border-bottom: none;
+    padding: 1em 1em 0 5em;
+    color: rgba(99, 44, 94, 0.9);
+    width: 25vw;
+    margin: 0;
+    input{
+        padding: 0.7em;
+        margin: 1em 0 3em 0;
+        width: 15em;
+        background-color: #DDE1E7;
+        border: none;
+    } 
+    #price{
+        background-color: rgb(247, 229, 232);
+    }
+    select{
+        display: block;
+        padding: 0.7em;
+        margin: 1em 0 1em 0;
+        width: 16.5em;
+        background-color: #DDE1E7;
+        border: none;
+        option{
+            background-color: #f3f5f7;
+            padding: 1em;
+            margin: 1em;
+            font-size: 1rem;
+        }
+    }
+    textarea{
+        width: 16em;
+        display: block;
+        height: 10em;
+        margin: 1em 0 1em 0;
+        background-color: #DDE1E7;
+    }
+    label{
+        display: block;
+    }
+    input[type=submit]{
+        background-color: rgba(93, 14, 130, 0.9);
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+        &:hover{
+            border: 0.5px groove #f3f5f7;
+            transition: 0.5s ease;
+            background-color:#f3f5f7 ;
+            color: rgba(93, 14, 130, 0.9);
+        }
+    }
+}
+.title{
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 2em;
+}
+.totalCash{
+    padding: 1em;
+    font-weight: 700;
+    color: rgba(93, 14, 130, 0.9);
+}
+
+// end of expense form section
+
+.latestTransactions{
+    border: 1px groove #f3f5f7;
+    height: 150vh;
     background-color: white;
     color: rgba(99, 44, 94, 0.9);
+    border-bottom: none;
+    width: 40vw;
+    margin: 0;
     padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba( 0, 0, 0.19);
     p {
-        font-weight: bold;
-        padding: 0 0 5px;
-        margin: 0;
-        font-size: 13px;
-        border-bottom: 1px solid #ddd;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 0.5em 0 2em 0;
+        padding: 0;
+        text-transform: uppercase;
     }
-    ul {
+    table {
         list-style: none;
         padding: 0;
         margin: 0;
-        li {
+        width: 100%;
+        thead td{
+            font-weight: 700;
+        }
+        tr{
+            width: 100%;
+            &:hover{
+                background-color:#f3f5f7;
+            }
+        }
+        td {
+            border: none;
             border-bottom: 1px solid #ddd;
-            padding: 5px 0;
-            display: flex;
-            justify-content: space-between;
+            padding: 7px 0;
             &:last-child {
                 border-bottom: 0;
                 padding: 5px 0 0;
             }
         }
     }
-}
-
-.exit {
-    background-color: white;
-    border: 0;
-    border-radius: 3px;
-    color: red;
-    cursor: pointer;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba( 0, 0, 0.19);
-    padding: 0.7em;
-    &:hover {
-        background-color: #cfcece;
-    }
-}
-
-.totalCash {
-    padding-bottom: 1em;
-    font-size: 1.5rem;
 }

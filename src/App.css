@@ -1,6 +1,7 @@
 body {
-    background-color: rgba(99, 44, 94, 0.9);
+    background-color: #f3f5f7;
     color: white;
+    box-sizing: border-box;
 }
 
 

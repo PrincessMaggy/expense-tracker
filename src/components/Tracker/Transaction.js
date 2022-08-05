@@ -4,14 +4,13 @@ const Transaction =(props)=>{
 
 
     return(
-        <li>
-            <div>{props.date}</div>
-            <div>{props.type}</div>
-            <div>{props.price}</div>
-            <div>{props.statuses}</div>
-            <div>{props.comment}</div>
-           
-        </li>
+                <tr>
+                    <td>{props.date}</td>
+                    <td>{props.type}</td>
+                    <td>{props.price}</td>
+                    <td>{props.statuses}</td>
+                    <td>{props.comment}</td>
+                </tr>
     )
 }
 
