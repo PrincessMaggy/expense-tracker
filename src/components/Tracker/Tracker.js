@@ -8,8 +8,8 @@ class Tracker extends Component{
 state ={
     transactions:[],
     money:0,
-    transactionName: "",
-    transactionType:"",
+    comment: "",
+    merchant:"",
     price:"",
     dates:"",
     statuses:"",
@@ -43,8 +43,8 @@ state ={
     //handles new transaction
     addNewTransaction =()=>{
         const {
-            transactionName,
-            transactionType,
+            comment,
+            merchant,
             price,
             currentUID,
             dates,
@@ -54,12 +54,12 @@ state ={
         }= this.state;
 
     //validation
-    if(transactionName && transactionType && price){
+    if(comment && merchant && price){
         const backUpState = this.state.transactions;
         backUpState.push({
             id: backUpState.length + 1,
-            name: transactionName,
-            type: transactionType,
+            comment: comment,
+            merchant: merchant,
             dates:dates,
             statuses:statuses,
             price: price,
@@ -69,8 +69,8 @@ state ={
 
         fire.database().ref('Transactions/' + currentUID).push({
             id: backUpState.length,
-            name: transactionName,
-            type: transactionType,
+            comment: comment,
+            merchant: merchant,
             dates:dates,
             price: price,
             image:image,
@@ -82,8 +82,8 @@ state ={
             this.setState({
                 transactions: backUpState,
                 money: statuses === 'Reimbursed'? money + parseFloat(price) : 0 + money,
-                transactionName:"",
-                transactionType:'',
+                comment:"",
+                merchant:'',
                 dates:"",
                 image:"",
                 statuses:"",
@@ -106,8 +106,8 @@ state ={
 
                 backUpState.push({
                     id:childSnapshot.val().id,
-                    name:childSnapshot.val().name,
-                    type:childSnapshot.val().type,
+                    comment:childSnapshot.val().comment,
+                    merchant:childSnapshot.val().merchant,
                     price:childSnapshot.val().price,
                     dates:childSnapshot.val().dates,
                     image:childSnapshot.val().image,
@@ -141,9 +141,9 @@ state ={
                             <div className="title">ADD EXPENSE</div>
                                 <div className="inputGroup">
                                     <label>Merchant:</label>
-                                    <select name="type"
-                                    value={this.state.transactionType}
-                                    onChange={this.handleChange("transactionType")}>
+                                    <select name="merchant"
+                                    value={this.state.merchant}
+                                    onChange={this.handleChange("merchant")}>
                                         <option value="0"></option>
                                         <option value="Taxi">Taxi</option>
                                         <option value="Breakfast">Breakfast</option>
@@ -186,10 +186,10 @@ state ={
                                 <label>Comment</label>
                                 <textarea
                                 type="text"
-                                name="transactionName"
-                                value={this.state.transactionName}
+                                name="comment"
+                                value={this.state.comment}
                                 maxLength="50"
-                                onChange={this.handleChange("transactionName")}></textarea><br/>
+                                onChange={this.handleChange("comment")}></textarea><br/>
                                 
                                 <label>Upload receipt</label>
                                 <input type="file"
@@ -226,16 +226,18 @@ state ={
                                 <td> Comment</td>
                             </tr>
                         </thead>
+                        <tbody>
                             {Object.keys(this.state.transactions).map((id)=>(
                                 <Transaction  key={id}
                                 date ={this.state.transactions[id].dates}
-                                type ={this.state.transactions[id].type}
+                                merchant ={this.state.transactions[id].merchant}
                                 statuses ={this.state.transactions[id].statuses}
-                                comment ={this.state.transactions[id].name}
+                                comment ={this.state.transactions[id].comment}
                                 price ={this.state.transactions[id].price}
                                 image ={this.state.transactions[id].image}
                                 />
                             ))}
+                            </tbody>
                         </table>
                     </div>
                 </div>

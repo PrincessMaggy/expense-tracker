@@ -45,9 +45,11 @@ This is a web app that performs the function of an expense tracker. It has the f
 - This would be my first time using google firebase for some backend stuff and it was litttt!
 
 ### Useful resources
-[https://stackoverflow.com/questions/70445014/module-not-found-error-package-path-is-not-exported-from-package]
+[module error](https://stackoverflow.com/questions/70445014/module-not-found-error-package-path-is-not-exported-from-package)
 
-[https://github.com/firebase/quickstart-js/issues/239]
+[firebase](https://github.com/firebase/quickstart-js/issues/239)
+
+[file reader](https://stackoverflow.com/questions/43992427/how-to-display-a-image-selected-from-input-type-file-in-reactjs)
 ## Author
 
 - Website - [Maggy](https://princessmaggy.github.io/My-Portfolio/)
