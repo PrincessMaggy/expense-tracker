@@ -22,6 +22,7 @@ This is a web app that performs the function of an expense tracker. It has the f
 - Receipt Upload functionality to attach receipt.
 ### Screenshot
 
+![screenshot](./screenshot2.PNG)
 ![screenshot](./screenshot.PNG)
 
 ### Links
