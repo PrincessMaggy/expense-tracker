@@ -16,6 +16,10 @@ state ={
     image:"",
     val:"none"
 }
+    //handle filter
+    handleFilter =()=>{
+
+    }
     // showup=(e)=>{
     //     this.setState({
     //         val: "block"
@@ -23,6 +27,7 @@ state ={
     //     console.log(e.target.parentElement)
     // }
 
+    //load image
     onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
         let reader = new FileReader();
@@ -257,25 +262,38 @@ state ={
                         </div>
                         <div className="mainFilter">
                             <label>From</label> <br/>
-                            <input type="date" /><br/>
+                            <input type="date" 
+                            name="mindate" 
+                            onChange={this.handleFilter('mindate')}/><br/>
 
                             <label>To</label><br/>
-                            <input type="date" /><br/>
+                            <input type="date" 
+                            name="maxdate" 
+                            onChange={this.handleFilter('maxdate')} /><br/>
 
                             <div className="lab">
                                 <label>Min</label>
                                 <label>Max</label>
                             </div>
                             <div className="labin">
-                                <input type="text" id="price" placeholder="$"/>
+                                <input type="text"
+                                 id="price" 
+                                 name="Price"
+                                onChange={this.handleFilter("price")}
+                                 placeholder="$"/>
+
                                 <span>-</span>
-                                <input type="text" id="price" placeholder="$"/>
+
+                                <input type="text"
+                                 id="price" 
+                                 name="Price"
+                                onChange={this.handleFilter("price")}
+                                 placeholder="$"/>
                             </div>
 
                             <label>Merchant:</label>
-                                    <select name="type"
-                                    value={this.state.transactionType}
-                                    onChange={this.handleChange("transactionType")}>
+                                    <select name="merchant"
+                                    onChange={this.handleFilter("merchant")}>
                                         <option value="0"></option>
                                         <option value="Taxi">Taxi</option>
                                         <option value="Breakfast">Breakfast</option>
@@ -290,9 +308,19 @@ state ={
 
                                     <label>Status</label><br/>
                                     
-                                    <input type="checkbox" /> <label>New</label>
-                                    <input type="checkbox" /> <label>Reimbursed</label>
-                                    <input type="checkbox" /> <label>In Progress</label>
+                                    <input type="checkbox" 
+                                    onChange={this.handleFilter("statuses")}
+                                    name="statuses"/> 
+                                    <label>New</label>
+
+                                    <input type="checkbox" 
+                                    onChange={this.handleFilter("statuses")}
+                                    name="statuses"/> 
+                                    <label>Reimbursed</label>
+                                    
+                                    <input type="checkbox" onChange={this.handleFilter("statuses")}
+                                    name="statuses"/> 
+                                    <label>In Progress</label>
 
                         </div>
 
