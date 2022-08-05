@@ -171,6 +171,7 @@ state ={
                                 type="text"
                                 name="transactionName"
                                 value={this.state.transactionName}
+                                maxLength="50"
                                 onChange={this.handleChange("transactionName")}></textarea><br/>
                                 
                                 <label>Upload receipt</label>
@@ -222,6 +223,54 @@ state ={
 
                 <div className="third">
                      <div className="totalCash">TOTAL EXPENSE: ${this.state.money}</div>
+                     <div className="filters">
+                        <div className="topF">
+                            <div className="filterHead">Filter Expenses</div>
+                            <div><a href="./" className="clearF">Clear Filters</a></div>
+                        </div>
+                        <div className="mainFilter">
+                            <label>From</label> <br/>
+                            <input type="date" /><br/>
+
+                            <label>To</label><br/>
+                            <input type="date" /><br/>
+
+                            <div className="lab">
+                                <label>Min</label>
+                                <label>Max</label>
+                            </div>
+                            <div className="labin">
+                                <input type="text" id="price" placeholder="$"/>
+                                <span>-</span>
+                                <input type="text" id="price" placeholder="$"/>
+                            </div>
+
+                            <label>Merchant:</label>
+                                    <select name="type"
+                                    value={this.state.transactionType}
+                                    onChange={this.handleChange("transactionType")}>
+                                        <option value="0"></option>
+                                        <option value="Taxi">Taxi</option>
+                                        <option value="Breakfast">Breakfast</option>
+                                        <option value="Airline">Airline</option>
+                                        <option value="Parking">Parking</option>
+                                        <option value="Rental Car">Rental Car</option>
+                                        <option value="Fast Food">Fast food</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Shuttle">Shuttle</option>
+                                        <option value="Hotel">Hotel</option>
+                                    </select><br/>
+
+                                    <label>Status</label><br/>
+                                    
+                                    <input type="checkbox" /> <label>New</label>
+                                    <input type="checkbox" /> <label>Reimbursed</label>
+                                    <input type="checkbox" /> <label>In Progress</label>
+
+                        </div>
+
+
+                     </div>
                 </div>
             </div>
         </>
