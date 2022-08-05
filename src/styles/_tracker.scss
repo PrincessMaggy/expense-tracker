@@ -152,6 +152,9 @@
         border-bottom: 1px solid #ddd;
         a{
         font-weight: 700;
+        &:hover{
+            text-decoration: none;
+        }
     }
 }
     .filters{
