@@ -16,10 +16,27 @@ state ={
     image:"",
     val:"none"
 }
-    //handle filter
-    handleFilter =()=>{
 
+    //reload page
+    loadup(){
+        window.location.reload(true);
     }
+
+     //handle filter
+     handleFilter =(e)=>{
+        if(e.target.id === "type"){
+            const filt =this.state.transactions.filter((state) =>
+            {if (state.merchant === e.target.value){
+                return state
+            }})
+           this.setState({
+            transactions: filt
+           })
+        }
+            
+      
+    }
+     
     // showup=(e)=>{
     //     this.setState({
     //         val: "block"
@@ -102,6 +119,8 @@ state ={
         })
     }
     }
+
+
 // lifecycle
     componentWillMount(){
         const {currentUID, money} = this.state;
@@ -246,7 +265,7 @@ state ={
                                     price ={this.state.transactions[id].price}
                                     image ={this.state.transactions[id].image}
                                     />
-                                ))}
+                                ))} 
                                 </tbody>
                             </table>
                         </div>
@@ -258,18 +277,20 @@ state ={
                      <div className="filters">
                         <div className="topF">
                             <div className="filterHead">Filter Expenses</div>
-                            <div><a href="./" className="clearF">Clear Filters</a></div>
+                            <div><a href="./" className="clearF" onClick={this.loadup}>Clear Filters</a></div>
                         </div>
                         <div className="mainFilter">
                             <label>From</label> <br/>
                             <input type="date" 
-                            name="mindate" 
-                            onChange={this.handleFilter('mindate')}/><br/>
+                            id="mindate" 
+                            onChange={this.handleFilter}
+                            /><br/>
 
                             <label>To</label><br/>
                             <input type="date" 
-                            name="maxdate" 
-                            onChange={this.handleFilter('maxdate')} /><br/>
+                            id="maxdate" 
+                            onChange={this.handleFilter}
+                             /><br/>
 
                             <div className="lab">
                                 <label>Min</label>
@@ -277,23 +298,25 @@ state ={
                             </div>
                             <div className="labin">
                                 <input type="text"
-                                 id="price" 
+                                 id="cashmin" 
                                  name="Price"
-                                onChange={this.handleFilter("price")}
+                                onClick={this.handleFilter}
                                  placeholder="$"/>
 
                                 <span>-</span>
 
                                 <input type="text"
-                                 id="price" 
+                                 id="cashmax" 
                                  name="Price"
-                                onChange={this.handleFilter("price")}
+                                onChange={this.handleFilter}
                                  placeholder="$"/>
                             </div>
 
                             <label>Merchant:</label>
-                                    <select name="merchant"
-                                    onChange={this.handleFilter("merchant")}>
+                                    <select
+                                    id="type"
+                                    onChange={this.handleFilter}
+                                    >
                                         <option value="0"></option>
                                         <option value="Taxi">Taxi</option>
                                         <option value="Breakfast">Breakfast</option>
@@ -309,17 +332,18 @@ state ={
                                     <label>Status</label><br/>
                                     
                                     <input type="checkbox" 
-                                    onChange={this.handleFilter("statuses")}
-                                    name="statuses"/> 
+                                    onChange={this.handleFilter}
+                                    id="statuses"/> 
                                     <label>New</label>
 
                                     <input type="checkbox" 
-                                    onChange={this.handleFilter("statuses")}
-                                    name="statuses"/> 
+                                    onChange={this.handleFilter}
+                                    id="statuses"/> 
                                     <label>Reimbursed</label>
                                     
-                                    <input type="checkbox" onChange={this.handleFilter("statuses")}
-                                    name="statuses"/> 
+                                    <input type="checkbox" 
+                                    onChange={this.handleFilter}
+                                    id="statuses"/> 
                                     <label>In Progress</label>
 
                         </div>
