@@ -132,11 +132,8 @@
         td {
             border: none;
             border-bottom: 1px solid #ddd;
-            padding: 7px 0;
-            &:last-child {
-                border-bottom: 0;
-                padding: 5px 0 0;
-            }
+            padding: 7px 4px;
+            margin:0 1em 0 1em;
         }
     }
 }
