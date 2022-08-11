@@ -14,7 +14,8 @@ state ={
     statuses:"",
     currentUID: fire.auth().currentUser.uid,
     image:"",
-    val:"none"
+    val:"none",
+    searchResults:[]
 }
 
     //reload page
@@ -23,17 +24,16 @@ state ={
     }
 
      //handle filter
-    //  handleFilter =(e)=>{
-    //     if(e.target.id === "type"){
-    //         const filt = this.state.transactions.filter((state) =>{
-    //             state.merchant === e.target.value}); 
-    //             this.setState({
-    //                 transactions: filt
-    //         })
-    //     }
-    //     console.log(filt)
-    // }
-
+    handleFilter =(e)=>{
+        if(e.target.id === "type"){
+            const filt =this.state.transactions.filter((state) => {
+             return  state.merchant === e.target.value
+            })
+            this.setState({
+               transactions: filt
+            })
+        }
+    }
 
     // showup=(e)=>{
     //     this.setState({
