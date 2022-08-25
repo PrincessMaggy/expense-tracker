@@ -25,6 +25,13 @@
         transition: 0.5s ease;
     }
 }
+@media (max-width:768px){
+    .exit{
+        
+    float:none;
+    display: block;
+    }
+}
 // end of title section
 
 
