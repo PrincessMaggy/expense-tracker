@@ -17,8 +17,8 @@ state ={
     val:"none",
     searchResults:[],
     filterExist:false,
-    price1:0,
-    price2:0,
+    price1:"",
+    price2:"",
     date1:"",
     date2:""
 }
@@ -70,12 +70,14 @@ state ={
            }
 
 
-        // if (e.target.name === "cash"){
-        //     const filt =this.state.transactions.filter(data =>data.price >= this.state.price1)
-        //     this.setState({
-        //         searchResults:filt
-        //     })
-        //    }
+        if (e.target.name === "cash"){
+            const filt =this.state.transactions.filter(data =>{
+                return data.price >= this.state.price1 && data.price <= this.state.price2
+            })
+            this.setState({
+                searchResults:filt
+            })
+           }
     }
 
     updateDate1= (e) =>{
