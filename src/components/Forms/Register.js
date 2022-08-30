@@ -6,7 +6,7 @@ class Register extends Component {
         email: "",
         password: "",
         displayName:"",
-        fireErrors: ""
+        fireErrors: "",
     }
 
     handleChange =(e) =>{
@@ -21,7 +21,8 @@ class Register extends Component {
         fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) =>{
             let currentUser = fire.auth().currentUser;
             currentUser.updateProfile({
-                displayName: this.state.displayName
+                displayName: this.state.displayName,
+                displayPics:this.state.displayPics
             })
         }).catch((error) =>{
             this.setState({fireErrors:error.message})
@@ -75,9 +76,10 @@ class Register extends Component {
 
                 <label id="myFile" >Upload your profile picture</label>
                 <input type="file" 
+                accept="image/*"
                 className="myFile"
                 id="myFile" 
-                name="filename"/>
+                name="displayPics"/>
 
                 <input type="submit"
                  className="submitBtn" 

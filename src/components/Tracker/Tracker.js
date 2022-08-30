@@ -15,7 +15,8 @@ state ={
     currentUID: fire.auth().currentUser.uid,
     image:"",
     val:"none",
-    searchResults:[]
+    searchResults:[],
+    filterExist:false
 }
 
     //reload page
@@ -23,24 +24,30 @@ state ={
         window.location.reload(true);
     }
 
-     //handle filter
-    handleFilter =(e)=>{
-        if(e.target.id === "type"){
-            const filt =this.state.transactions.filter((state) => {
-             return  state.merchant === e.target.value
-            })
-            this.setState({
-               transactions: filt
-            })
-        }
+    //Executes Tracker component
+    handleExecution =()=>{
+    if(this.state.filterExist){
+        console.log("Hello")
+        return this.state.searchResults
+    }
+    else{
+        return this.state.transactions
+    }
     }
 
-    // showup=(e)=>{
-    //     this.setState({
-    //         val: "block"
-    //     })
-    //     console.log(e.target.parentElement)
-    // }
+     //handle filter
+    handleFilter =(e)=>{
+        this.setState({
+            filterExist:true
+        })
+        if(e.target.id === "type"){ 
+                const filt= this.state.transactions.filter(data=> data.merchant === e.target.value)
+                console.log(filt);
+                this.setState({
+                    searchResults:filt
+                })
+           }
+    }
 
     //load image
     onImageChange = (event) => {
@@ -155,6 +162,7 @@ state ={
             <>
             <div className="welcome">
                         <span>Welcome, {currentUser.displayName}!</span>
+                        {/* <span>Welcome, {currentUser.displayPics}!</span> */}
                         <button onClick={this.logout} className="exit">LOG OUT</button>
                     </div>
 
@@ -254,16 +262,17 @@ state ={
                                 </tr>
                             </thead>
                             <tbody>
-                                {Object.keys(this.state.transactions).map((id)=>(
+                                {   Object.keys(this.handleExecution()).map((id)=>(
                                     <Transaction  key={id}
-                                    date ={this.state.transactions[id].dates}
-                                    merchant ={this.state.transactions[id].merchant}
-                                    statuses ={this.state.transactions[id].statuses}
-                                    comment ={this.state.transactions[id].comment}
-                                    price ={this.state.transactions[id].price}
-                                    image ={this.state.transactions[id].image}
+                                    date ={this.handleExecution()[id].dates}
+                                    merchant ={this.handleExecution()[id].merchant}
+                                    statuses ={this.handleExecution()[id].statuses}
+                                    comment ={this.handleExecution()[id].comment}
+                                    price ={this.handleExecution()[id].price}
+                                    image ={this.handleExecution()[id].image}
                                     />
                                 ))} 
+                                
                                 </tbody>
                             </table>
                         </div>
