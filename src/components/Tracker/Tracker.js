@@ -27,7 +27,6 @@ state ={
     //Executes Tracker component
     handleExecution =()=>{
     if(this.state.filterExist){
-        console.log("Hello")
         return this.state.searchResults
     }
     else{
@@ -42,10 +41,15 @@ state ={
         })
         if(e.target.id === "type"){ 
                 const filt= this.state.transactions.filter(data=> data.merchant === e.target.value)
-                console.log(filt);
                 this.setState({
                     searchResults:filt
                 })
+           }
+           else if(e.target.id === "statuses"){
+            const filt= this.state.transactions.filter(data =>data.statuses === e.target.value)
+            this.setState({
+                searchResults:filt
+            })
            }
     }
 
@@ -336,23 +340,24 @@ state ={
                                         <option value="Hotel">Hotel</option>
                                     </select><br/>
 
-                                    <label>Status</label><br/>
-                                    
-                                    <input type="checkbox" 
+                                    <label>Status</label><br/> 
+                                    <input type="radio" 
                                     onChange={this.handleFilter}
-                                    id="statuses"/> 
+                                    id="statuses"
+                                    value="New"/> 
                                     <label>New</label>
 
-                                    <input type="checkbox" 
+                                    <input type="radio" 
                                     onChange={this.handleFilter}
-                                    id="statuses"/> 
+                                    id="statuses"
+                                    value ="Reimbursed"/> 
                                     <label>Reimbursed</label>
                                     
-                                    <input type="checkbox" 
+                                    <input type="radio" 
                                     onChange={this.handleFilter}
+                                    value="In Progress"
                                     id="statuses"/> 
                                     <label>In Progress</label>
-
                         </div>
 
 
