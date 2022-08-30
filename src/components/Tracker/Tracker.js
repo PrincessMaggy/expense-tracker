@@ -357,7 +357,7 @@ state ={
                             onChange={this.updateDate2}
                              /><br/>
 
-                            <div className="lab">
+                            {/* <div className="lab">
                                 <label>Min</label>
                                 <label>Max</label>
                             </div>
@@ -379,7 +379,7 @@ state ={
                                 onChange={this.updateprice2}
                                 onMouseLeave={this.handleFilter}
                                  placeholder="$"/>
-                            </div>
+                            </div> */}
 
                             <label>Merchant:</label>
                                     <select
