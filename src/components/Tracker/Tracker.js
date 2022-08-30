@@ -45,7 +45,7 @@ state ={
                     searchResults:filt
                 })
            }
-           else if(e.target.id === "statuses"){
+        if(e.target.name === "statuses"){
             const filt= this.state.transactions.filter(data =>data.statuses === e.target.value)
             this.setState({
                 searchResults:filt
@@ -343,21 +343,24 @@ state ={
                                     <label>Status</label><br/> 
                                     <input type="radio" 
                                     onChange={this.handleFilter}
-                                    id="statuses"
+                                    name="statuses"
+                                    id="new"
                                     value="New"/> 
-                                    <label>New</label>
+                                    <label htmlFor="new">New</label>
 
                                     <input type="radio" 
                                     onChange={this.handleFilter}
-                                    id="statuses"
+                                    name="statuses"
+                                    id="re"
                                     value ="Reimbursed"/> 
-                                    <label>Reimbursed</label>
+                                    <label htmlFor="re">Reimbursed</label>
                                     
                                     <input type="radio" 
                                     onChange={this.handleFilter}
                                     value="In Progress"
-                                    id="statuses"/> 
-                                    <label>In Progress</label>
+                                    id="progress"
+                                    name="statuses"/> 
+                                    <label htmlFor="progress">In Progress</label>
                         </div>
 
 
