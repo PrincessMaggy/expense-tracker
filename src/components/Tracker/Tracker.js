@@ -18,7 +18,9 @@ state ={
     searchResults:[],
     filterExist:false,
     price1:0,
-    price2:0
+    price2:0,
+    date1:"",
+    date2:""
 }
 
     //reload page
@@ -43,7 +45,9 @@ state ={
             filterExist:true
         })
         if(e.target.id === "date"){ 
-            const filt= this.state.transactions.filter(data=> data.dates === e.target.value)
+            const filt= this.state.transactions.filter(data=>{
+                return data.dates >= this.state.date1 && data.dates <= this.state.date2
+            })
             this.setState({
                 searchResults:filt
             })
@@ -66,16 +70,34 @@ state ={
            }
 
 
-        if (e.target.name === "cash"){
-           
-
-            const filt =this.state.transactions.filter(data =>data.price >= this.state.price1)
-            this.setState({
-                searchResults:filt
-            })
-           }
+        // if (e.target.name === "cash"){
+        //     const filt =this.state.transactions.filter(data =>data.price >= this.state.price1)
+        //     this.setState({
+        //         searchResults:filt
+        //     })
+        //    }
     }
 
+    updateDate1= (e) =>{
+        this.setState({
+            date1:e.target.value
+        })
+    }
+    updateDate2= (e)=>{
+        this.setState({
+            date2:e.target.value
+        })
+    }
+    updateprice1 =(e) =>{
+        this.setState({
+            price1:e.target.value
+        })
+    }
+    updateprice2 =(e) =>{
+        this.setState({
+            price2:e.target.value
+        })
+    }
     //load image
     onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -320,13 +342,17 @@ state ={
                             <label>From</label> <br/>
                             <input type="date" 
                             id="date" 
-                            onChange={this.handleFilter}
+                            value={this.state.date1}
+                            onMouseLeave={this.handleFilter}
+                            onChange={this.updateDate1}
                             /><br/>
 
                             <label>To</label><br/>
                             <input type="date" 
                             id="date" 
-                            onChange={this.handleFilter}
+                            value={this.state.date2}
+                            onMouseLeave={this.handleFilter}
+                            onChange={this.updateDate2}
                              /><br/>
 
                             <div className="lab">
@@ -338,7 +364,8 @@ state ={
                                  id="cashmin" 
                                  name="Price"
                                  value={this.state.price1}
-                                onChange={this.handleFilter}
+                                onChange={this.updateprice1}
+                                onMouseLeave={this.handleFilter}
                                  placeholder="$"/>
 
                                 <span>-</span>
@@ -347,7 +374,8 @@ state ={
                                  id="cashmax" 
                                  name="Price"
                                  value={this.state.price2}
-                                onChange={this.handleFilter}
+                                onChange={this.updateprice2}
+                                onMouseLeave={this.handleFilter}
                                  placeholder="$"/>
                             </div>
 
