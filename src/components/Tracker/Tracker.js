@@ -16,7 +16,9 @@ state ={
     image:"",
     val:"none",
     searchResults:[],
-    filterExist:false
+    filterExist:false,
+    price1:0,
+    price2:0
 }
 
     //reload page
@@ -36,17 +38,38 @@ state ={
 
      //handle filter
     handleFilter =(e)=>{
+        
         this.setState({
             filterExist:true
         })
+        if(e.target.id === "date"){ 
+            const filt= this.state.transactions.filter(data=> data.dates === e.target.value)
+            this.setState({
+                searchResults:filt
+            })
+       }
+
+
         if(e.target.id === "type"){ 
                 const filt= this.state.transactions.filter(data=> data.merchant === e.target.value)
                 this.setState({
                     searchResults:filt
                 })
            }
+
+
         if(e.target.name === "statuses"){
             const filt= this.state.transactions.filter(data =>data.statuses === e.target.value)
+            this.setState({
+                searchResults:filt
+            })
+           }
+
+
+        if (e.target.name === "cash"){
+           
+
+            const filt =this.state.transactions.filter(data =>data.price >= this.state.price1)
             this.setState({
                 searchResults:filt
             })
@@ -285,21 +308,24 @@ state ={
 
                 <div className="third">
                      <div className="totalCash">TOTAL EXPENSE: ${this.state.money}</div>
+
                      <div className="filters">
+
                         <div className="topF">
                             <div className="filterHead">Filter Expenses</div>
                             <div><a href="./" className="clearF" onClick={this.loadup}>Clear Filters</a></div>
                         </div>
+
                         <div className="mainFilter">
                             <label>From</label> <br/>
                             <input type="date" 
-                            id="mindate" 
+                            id="date" 
                             onChange={this.handleFilter}
                             /><br/>
 
                             <label>To</label><br/>
                             <input type="date" 
-                            id="maxdate" 
+                            id="date" 
                             onChange={this.handleFilter}
                              /><br/>
 
@@ -311,7 +337,8 @@ state ={
                                 <input type="text"
                                  id="cashmin" 
                                  name="Price"
-                                onClick={this.handleFilter}
+                                 value={this.state.price1}
+                                onChange={this.handleFilter}
                                  placeholder="$"/>
 
                                 <span>-</span>
@@ -319,6 +346,7 @@ state ={
                                 <input type="text"
                                  id="cashmax" 
                                  name="Price"
+                                 value={this.state.price2}
                                 onChange={this.handleFilter}
                                  placeholder="$"/>
                             </div>
