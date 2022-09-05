@@ -52,22 +52,13 @@ state ={
         let search = this.state.transactions;
         search= search.filter(data=>{
             return (
-                (data.dates >= this.state.date1 && data.dates <= this.state.date2) ||
-            data.merchant === this.state.merch ||
-            data.statuses === this.state.statusQuo ||
+                (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+            data.merchant === this.state.merch &&
+            data.statuses === this.state.statusQuo &&
             (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
 
         )})
-        if(this.state.date1 && this.state.date2 && this.state.price1 && this.state.price2 && this.state.merch && this.state.statusQuo){
-            search= search.filter(data=>{
-                return (
-                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
-                data.merchant === this.state.merch &&
-                data.statuses === this.state.statusQuo  &&
-                (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
-    
-            )})
-        }
+       
         this.setState({
             searchResults:search
         })
