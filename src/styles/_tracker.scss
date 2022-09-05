@@ -80,7 +80,7 @@
     label{
         display: block;
     }
-    input[type=submit]{
+    .exit{
         background-color: rgba(93, 14, 130, 0.9);
         color: white;
         text-transform: uppercase;
@@ -167,7 +167,7 @@
     .filters{
         padding: 0 0 0 1em;
     }
-    input{
+    .filt{
         padding: 0.7em;
         margin: 1em 0 3em 0;
         width: 15em;
@@ -219,4 +219,19 @@
         padding-bottom: 7em;
     }
     
+}
+
+.filter{
+    padding: 0.7em;
+    background-color: rgba(93, 14, 130, 0.97) !important;
+    color: white;
+    font-weight: 700;
+    border: none;
+    width: 15em;
+    &:hover{
+        background-color: white !important;
+        color: rgba(93, 14, 130, 0.97);
+        border: 1px solid rgba(93, 14, 130, 0.97);
+        transition: 0.2s ease-in;
+    }
 }

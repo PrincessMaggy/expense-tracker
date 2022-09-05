@@ -45,20 +45,25 @@ state ={
     }
      //handle filter
     handleFilter =(e)=>{
-        
+        e.preventDefault();
         this.setState({
             filterExist:true
         })
         let search = this.state.transactions;
         search= search.filter(data=>{
-            return (
-                (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
-            data.merchant === this.state.merch &&
-            data.statuses === this.state.statusQuo &&
-            (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
-
-        )})
-       
+            if(this.state.date1 && this.state.date2 && this.state.merch && this.state.statusQuo && this.state.price1 && this.state.price2){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    data.merchant === this.state.merch &&
+                    data.statuses === this.state.statusQuo &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else{
+                return data;
+            }
+           
+    })
         this.setState({
             searchResults:search
         })
@@ -293,7 +298,7 @@ state ={
                                 </div>
 
                                 <input type="submit" 
-                                className="addTransaction"
+                                className="filter"
                                 onClick={()=> this.addNewTransaction()}
                             value="Add Transaction"
                                 />
@@ -345,89 +350,92 @@ state ={
                         </div>
 
                         <div className="mainFilter">
-                            <label>From</label> <br/>
-                            <input type="date" 
-                            id="date" 
-                            value={this.state.date1}
-                            onMouseLeave={this.handleFilter}
-                            onChange={this.updateDate1}
-                            /><br/>
+                            <form>
+                                <label>From</label> <br/>
+                                <input type="date" 
+                                id="date" 
+                                value={this.state.date1}
+                                onChange={this.updateDate1}
+                                className="filt"
+                                /><br/>
 
-                            <label>To</label><br/>
-                            <input type="date" 
-                            id="date" 
-                            value={this.state.date2}
-                            onMouseLeave={this.handleFilter}
-                            onChange={this.updateDate2}
-                             /><br/>
+                                <label>To</label><br/>
+                                <input type="date" 
+                                id="date" 
+                                value={this.state.date2}
+                                className="filt"
+                                onChange={this.updateDate2}
+                                /><br/>
 
-                            <div className="lab">
-                                <label>Min</label>
-                                <label>Max</label>
-                            </div>
-                            <div className="labin">
-                                <input type="text"
-                                 id="cashmin" 
-                                 name="Price"
-                                 value={this.state.price1}
-                                onChange={this.updateprice1}
-                                onMouseLeave={this.handleFilter}
-                                 placeholder="$"/>
+                                <div className="lab">
+                                    <label>Min</label>
+                                    <label>Max</label>
+                                </div>
+                                <div className="labin">
+                                    <input type="text"
+                                    id="cashmin" 
+                                    name="Price"
+                                    value={this.state.price1}
+                                    onChange={this.updateprice1}
+                                    className="filt"
+                                    placeholder="$"/>
 
-                                <span>-</span>
+                                    <span>-</span>
 
-                                <input type="text"
-                                 id="cashmax" 
-                                 name="Price"
-                                 value={this.state.price2}
-                                onChange={this.updateprice2}
-                                onMouseLeave={this.handleFilter}
-                                 placeholder="$"/>
-                            </div>
+                                    <input type="text"
+                                    id="cashmax" 
+                                    name="Price"
+                                    value={this.state.price2}
+                                    onChange={this.updateprice2}
+                                    className="filt"
+                                    placeholder="$"/>
+                                </div>
 
-                            <label>Merchant:</label>
-                                    <select
-                                    id="type"
-                                    value={this.state.merch}
-                                    onChange={this.updateMerch}
-                                    onMouseLeave={this.handleFilter}
-                                    >
-                                        <option value="0"></option>
-                                        <option value="Taxi">Taxi</option>
-                                        <option value="Breakfast">Breakfast</option>
-                                        <option value="Airline">Airline</option>
-                                        <option value="Parking">Parking</option>
-                                        <option value="Rental Car">Rental Car</option>
-                                        <option value="Fast Food">Fast food</option>
-                                        <option value="Electronics">Electronics</option>
-                                        <option value="Shuttle">Shuttle</option>
-                                        <option value="Hotel">Hotel</option>
-                                    </select><br/>
+                                <label>Merchant:</label>
+                                        <select
+                                        id="type"
+                                        value={this.state.merch}
+                                        onChange={this.updateMerch}
+                                        >
+                                            <option value="0"></option>
+                                            <option value="Taxi">Taxi</option>
+                                            <option value="Breakfast">Breakfast</option>
+                                            <option value="Airline">Airline</option>
+                                            <option value="Parking">Parking</option>
+                                            <option value="Rental Car">Rental Car</option>
+                                            <option value="Fast Food">Fast food</option>
+                                            <option value="Electronics">Electronics</option>
+                                            <option value="Shuttle">Shuttle</option>
+                                            <option value="Hotel">Hotel</option>
+                                        </select><br/>
 
-                                    <label>Status</label><br/> 
-                                    <input type="radio" 
-                                    onMouseLeave={this.handleFilter}
-                                    onChange={this.updateStatus}
-                                    name="statuses"
-                                    id="new"
-                                    value="New"/> 
-                                    <label htmlFor="new">New</label>
+                                        <label>Status</label><br/> 
+                                        <input type="radio" 
+                                        onChange={this.updateStatus}
+                                        name="statuses"
+                                        className="filt"
+                                        id="new"
+                                        value="New"/> 
+                                        <label htmlFor="new">New</label>
 
-                                    <input type="radio" 
-                                    onChange={this.updateStatus}
-                                    onMouseLeave={this.handleFilter}
-                                    name="statuses"
-                                    id="re"
-                                    value ="Reimbursed"/> 
-                                    <label htmlFor="re">Reimbursed</label>
-                                    
-                                    <input type="radio" 
-                                    onChange={this.updateStatus}
-                                    onMouseLeave={this.handleFilter}
-                                    value="In Progress"
-                                    id="progress"
-                                    name="statuses"/> 
-                                    <label htmlFor="progress">In Progress</label>
+                                        <input type="radio" 
+                                        onChange={this.updateStatus}
+                                        name="statuses"
+                                        className="filt"
+                                        id="re"
+                                        value ="Reimbursed"/> 
+                                        <label htmlFor="re">Reimbursed</label>
+                                        
+                                        <input type="radio" 
+                                        onChange={this.updateStatus}
+                                        value="In Progress"
+                                        className="filt"
+                                        id="progress"
+                                        name="statuses"/> 
+                                        <label htmlFor="progress">In Progress</label>
+
+                                        <input type="submit" className="filter" onClick={this.handleFilter} value="FILTER"/>
+                                    </form>
                         </div>
 
 
