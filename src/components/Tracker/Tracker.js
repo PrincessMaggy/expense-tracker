@@ -20,7 +20,9 @@ state ={
     price1:"",
     price2:"",
     date1:"",
-    date2:""
+    date2:"",
+    merch:"",
+    statusQuo:""
 }
 
     //reload page
@@ -38,46 +40,52 @@ state ={
     }
     }
 
+    anyFilter=()=>{
+        
+    }
      //handle filter
     handleFilter =(e)=>{
         
         this.setState({
             filterExist:true
         })
-        if(e.target.id === "date"){ 
-            const filt= this.state.transactions.filter(data=>{
-                return data.dates >= this.state.date1 && data.dates <= this.state.date2
-            })
-            this.setState({
-                searchResults:filt
-            })
-       }
+        let search = this.state.transactions;
+        search= search.filter(data=>{
+            return (
+                (data.dates >= this.state.date1 && data.dates <= this.state.date2) ||
+            data.merchant === this.state.merch ||
+            data.statuses === this.state.statusQuo ||
+            (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+
+        )})
+        if(this.state.date1 && this.state.date2 && this.state.price1 && this.state.price2 && this.state.merch && this.state.statusQuo){
+            search= search.filter(data=>{
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                data.merchant === this.state.merch &&
+                data.statuses === this.state.statusQuo  &&
+                (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+    
+            )})
+        }
+        this.setState({
+            searchResults:search
+        })
+
+    }
 
 
-        if(e.target.id === "type"){ 
-                const filt= this.state.transactions.filter(data=> data.merchant === e.target.value)
-                this.setState({
-                    searchResults:filt
-                })
-           }
+    
+    updateStatus =(e)=>{
+        this.setState({
+            statusQuo: e.target.value
+        })
 
-
-        if(e.target.name === "statuses"){
-            const filt= this.state.transactions.filter(data =>data.statuses === e.target.value)
-            this.setState({
-                searchResults:filt
-            })
-           }
-
-
-        if (e.target.name === "cash"){
-            const filt =this.state.transactions.filter(data =>{
-                return data.price >= this.state.price1 && data.price <= this.state.price2
-            })
-            this.setState({
-                searchResults:filt
-            })
-           }
+    }
+    updateMerch =(e)=>{
+        this.setState({
+            merch:e.target.value
+        })
     }
 
     updateDate1= (e) =>{
@@ -85,21 +93,26 @@ state ={
             date1:e.target.value
         })
     }
+
     updateDate2= (e)=>{
         this.setState({
             date2:e.target.value
         })
     }
+
     updateprice1 =(e) =>{
         this.setState({
             price1:e.target.value
         })
     }
+
     updateprice2 =(e) =>{
         this.setState({
             price2:e.target.value
         })
     }
+
+
     //load image
     onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -357,7 +370,7 @@ state ={
                             onChange={this.updateDate2}
                              /><br/>
 
-                            {/* <div className="lab">
+                            <div className="lab">
                                 <label>Min</label>
                                 <label>Max</label>
                             </div>
@@ -379,12 +392,14 @@ state ={
                                 onChange={this.updateprice2}
                                 onMouseLeave={this.handleFilter}
                                  placeholder="$"/>
-                            </div> */}
+                            </div>
 
                             <label>Merchant:</label>
                                     <select
                                     id="type"
-                                    onChange={this.handleFilter}
+                                    value={this.state.merch}
+                                    onChange={this.updateMerch}
+                                    onMouseLeave={this.handleFilter}
                                     >
                                         <option value="0"></option>
                                         <option value="Taxi">Taxi</option>
@@ -400,21 +415,24 @@ state ={
 
                                     <label>Status</label><br/> 
                                     <input type="radio" 
-                                    onChange={this.handleFilter}
+                                    onMouseLeave={this.handleFilter}
+                                    onChange={this.updateStatus}
                                     name="statuses"
                                     id="new"
                                     value="New"/> 
                                     <label htmlFor="new">New</label>
 
                                     <input type="radio" 
-                                    onChange={this.handleFilter}
+                                    onChange={this.updateStatus}
+                                    onMouseLeave={this.handleFilter}
                                     name="statuses"
                                     id="re"
                                     value ="Reimbursed"/> 
                                     <label htmlFor="re">Reimbursed</label>
                                     
                                     <input type="radio" 
-                                    onChange={this.handleFilter}
+                                    onChange={this.updateStatus}
+                                    onMouseLeave={this.handleFilter}
                                     value="In Progress"
                                     id="progress"
                                     name="statuses"/> 
