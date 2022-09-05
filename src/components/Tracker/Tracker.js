@@ -59,6 +59,91 @@ state ={
                     (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
                      )
             }
+            else if (this.state.date1 && this.state.date2 && !this.state.price1 && !this.state.price2 && !this.state.merch && !this.state.statusQuo){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) 
+                     )
+            }
+            else if (this.state.date1 && this.state.date2 && this.state.price1 && this.state.price2 && !this.state.merch && !this.state.statusQuo){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(this.state.date1 && this.state.date2 && this.state.price1 && this.state.price2 && this.state.merch && !this.state.statusQuo){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    data.merchant === this.state.merch &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(this.state.date1 && this.state.date2 && this.state.merch && !this.state.statusQuo && !this.state.price1 && !this.state.price2){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    data.merchant === this.state.merch
+                     )
+            }
+            else if(this.state.date1 && this.state.date2 && !this.state.merch && this.state.statusQuo && !this.state.price1 && !this.state.price2){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    data.statuses === this.state.statusQuo
+                     )
+            }
+            else if(this.state.date1 && this.state.date2 && this.state.merch && this.state.statusQuo && !this.state.price1 && !this.state.price2){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    data.merchant === this.state.merch &&
+                    data.statuses === this.state.statusQuo
+                     )
+            }
+            else if(this.state.date1 && this.state.date2 && !this.state.merch && this.state.statusQuo && this.state.price1 && this.state.price2){
+                return (
+                    (data.dates >= this.state.date1 && data.dates <= this.state.date2) &&
+                    data.statuses === this.state.statusQuo &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(!this.state.date1 && !this.state.date2 && this.state.price1 && this.state.price2 && !this.state.merch && !this.state.statusQuo){
+                return (
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(!this.state.date1 && !this.state.date2 && this.state.price1 && this.state.price2 && this.state.merch && !this.state.statusQuo){
+                return (
+                    data.merchant === this.state.merch &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(!this.state.date1 && !this.state.date2 && this.state.price1 && this.state.price2 && !this.state.merch && this.state.statusQuo){
+                return (
+                    data.statuses === this.state.statusQuo &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(!this.state.date1 && !this.state.date2 && this.state.price1 && this.state.price2 && this.state.merch && this.state.statusQuo){
+                return (
+                    data.merchant === this.state.merch &&
+                    data.statuses === this.state.statusQuo &&
+                    (data.price >= Number(this.state.price1) && data.price <= Number(this.state.price2))
+                     )
+            }
+            else if(!this.state.date1 && !this.state.date2 && !this.state.price1 && !this.state.price2 && this.state.merch && !this.state.statusQuo){
+                return (
+                    data.merchant === this.state.merch
+                )
+            }
+            else if(!this.state.date1 && !this.state.date2 && this.state.merch && this.state.statusQuo && !this.state.price1 && !this.state.price2){
+                return (
+                    data.merchant === this.state.merch &&
+                    data.statuses === this.state.statusQuo 
+                     )
+            }
+            else if(!this.state.date1 && !this.state.date2 && !this.state.merch && this.state.statusQuo && !this.state.price1 && !this.state.price2){
+                return (
+                    data.statuses === this.state.statusQuo
+                     )
+            }
+            
             else{
                 return data;
             }
